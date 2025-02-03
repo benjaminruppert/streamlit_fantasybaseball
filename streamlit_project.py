@@ -2,6 +2,10 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+finalinnine = 0
+finalinnings = 0
+
+
 st.title("Should you stream that pitcher? ")
 st.subheader("Enter below and find out!")
 
