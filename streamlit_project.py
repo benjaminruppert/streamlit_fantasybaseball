@@ -2,8 +2,13 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+
 finalinnine = 0
 finalinnings = 0
+
+##need to remove this
+opp_Ks = 10
+my_Ks 5
 
 
 st.title("Should you stream that pitcher? ")
