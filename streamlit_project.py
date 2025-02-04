@@ -10,12 +10,18 @@ st.title("Should you stream that pitcher? ")
 st.subheader("Enter below and find out!")
 
 
-st.subheader("First, let's check ERA")
+st.subheader("First, let's check to see if your ERA and WHIP goals are in reach")
 opp_era = st.number_input("Enter your oppenent's ERA")
-opp_Ks = st.number_input("Enter your oppenent's total strikeouts")
+opp_whip = st.number_input("Enter your oppenent's WHIP")
 my_era = st.number_input("Enter your ERA")
-my_Ks = st.number_input("Enter your total strikeouts")
+my_whip = st.number_input("Enter your WHIP")
 my_ip = st.number_input("Enter your innings pitched")
+
+if opp_era > my_era:
+    st.subheader("You are already ahead in ERA")
+if opp_whip > my_whip:
+    st.subheader("You are already ahead in WHIP")
+    
 
 ##calc to get earned runs from era
 my_er = my_era*my_ip/9
@@ -48,7 +54,7 @@ forera.loc[len(forera)] = [np.nan, np.nan, np.nan, kdiff, finalinnine]
 
 
 if finalinnings > 0:   
-    st.subheader("Here's how many earned runs you can allow in 9 IP:")
+    st.subheader("Here's the ERA you need from your streamers (scaled to 9IP)")
     finalinnine
 else: st.subheader("You are already ahead")
 
