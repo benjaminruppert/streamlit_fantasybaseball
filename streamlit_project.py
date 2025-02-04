@@ -8,7 +8,7 @@ finalinnings = 0
 
 ##need to remove this
 opp_Ks = 10
-my_Ks 5
+my_Ks = 5
 
 
 st.title("Should you stream that pitcher? ")
