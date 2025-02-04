@@ -30,15 +30,22 @@ if opp_whip > my_whip:
 
 ##calc to get earned runs from era
 my_er = my_era*my_ip/9
+##calc to get additional walks+hits for whip
+addwalkshits = opp_whip*(my_ip + 9)
 ##calc to get K difference
 kdiff = opp_Ks - my_Ks
 
-##calc to return
+##calc to return for era
 if opp_era != 0:
     final = 9*my_er/opp_era
     finalinnings = final - my_ip
     finalinnine = 9/finalinnings
     finalksinnine = opp_Ks/9
+
+##calc to return for whip
+finalwhip = addwalkshits/(my_ip + 9)
+
+
     
 
 
@@ -59,6 +66,8 @@ forera.loc[len(forera)] = [np.nan, np.nan, np.nan, kdiff, finalinnine]
 # Output
 st.subheader("Here's the ERA you need from your streamers (scaled to 9IP)")
 finalinnine
+st.subheader("Here's the WHIP you need from your streamers (scaled to 9IP)")
+finalwhip
 
 
 
