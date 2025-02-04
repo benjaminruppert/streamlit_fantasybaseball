@@ -56,12 +56,10 @@ forera["ERA"] = 9*(forera["ER"] / forera["IP"])
 forera.loc[len(forera)] = [np.nan, np.nan, np.nan, kdiff, finalinnine]
 
 
+# Output
+st.subheader("Here's the ERA you need from your streamers (scaled to 9IP)")
+finalinnine
 
-
-if finalinnings > 0:   
-    st.subheader("Here's the ERA you need from your streamers (scaled to 9IP)")
-    finalinnine
-else: st.subheader("You are already ahead")
 
 
 
