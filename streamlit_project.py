@@ -42,6 +42,10 @@ if opp_era != 0:
     finalinnine = 9/finalinnings
     finalksinnine = opp_Ks/9
 
+##ERA again...
+if opp_era != 0:
+    finalinnine = 9*(my_er)/my_ip
+
 ##calc to return for whip
 finalwhip = addwalkshits/(my_ip + 9)
 
