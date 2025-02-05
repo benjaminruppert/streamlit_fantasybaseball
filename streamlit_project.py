@@ -46,6 +46,8 @@ if opp_era != 0:
 if opp_era != 0:
     finalinnine = 9*(my_er)/(my_ip + finalinnings)
 
+finalinnings
+
 ##calc to return for whip
 finalwhip = addwalkshits/(my_ip + 9)
 
