@@ -45,7 +45,7 @@ if opp_era != 0:
 
 ##ERA again...
 #if opp_era != 0:
-    #finalinnine = finalinnings/9
+    finalinnine = finalinnings/9
 
 
 
