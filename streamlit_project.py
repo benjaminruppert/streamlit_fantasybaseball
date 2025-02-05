@@ -40,7 +40,7 @@ kdiff = opp_Ks - my_Ks
 if opp_era != 0:
     #final = 9*my_er/opp_era
     finalinnings = (my_er/(opp_era/9)) - my_ip
-    finalinnine = 9/finalinnings
+    finalinnine = (9*my_er)/(my_ip + finalinnings)
     finalksinnine = opp_Ks/9
 
 ##ERA again...
