@@ -22,6 +22,7 @@ my_era = st.number_input("Enter your ERA")
 my_whip = st.number_input("Enter your WHIP")
 my_ip = st.number_input("Enter your innings pitched")
 
+## make this into a function!
 if opp_era > my_era:
     st.subheader("You are already ahead in ERA")
 if opp_whip > my_whip:
@@ -44,7 +45,7 @@ if opp_era != 0:
 
 ##ERA again...
 #if opp_era != 0:
-    #finalinnine = 9*(my_er)/(my_ip + finalinnings)
+    #finalinnine = finalinnings/9
 
 
 
@@ -70,7 +71,7 @@ forera.loc[len(forera)] = [np.nan, np.nan, np.nan, kdiff, finalinnine]
 
 
 # Output
-st.subheader("Here's the ERA you need from your streamers (scaled to 9IP)")
+st.subheader("Here's how many run free innings you need")
 finalinnine
 st.subheader("Here's the WHIP you need from your streamers (scaled to 9IP)")
 finalwhip
