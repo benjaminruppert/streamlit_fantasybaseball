@@ -73,6 +73,7 @@ forera.loc[len(forera)] = [np.nan, np.nan, np.nan, kdiff, finalinnine]
 # Output
 st.subheader("Here's how many run free innings you need")
 finalinnine
+finalinnings
 st.subheader("Here's the WHIP you need from your streamers (scaled to 9IP)")
 finalwhip
 
