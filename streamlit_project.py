@@ -40,6 +40,7 @@ kdiff = opp_Ks - my_Ks
 if opp_era != 0:
     #final = 9*my_er/opp_era
     finalinnings = ((my_era-opp_era)*my_ip)/opp_era
+    finalinnine = 9/finalinnings
     finalksinnine = opp_Ks/9
 
 ##ERA again...
@@ -71,6 +72,7 @@ forera.loc[len(forera)] = [np.nan, np.nan, np.nan, kdiff, finalinnine]
 
 # Output
 st.subheader("Here's how many run free innings you need")
+my_er
 finalinnine
 finalinnings
 st.subheader("Here's the WHIP you need from your streamers (scaled to 9IP)")
