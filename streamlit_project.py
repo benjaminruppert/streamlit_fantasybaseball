@@ -1,9 +1,18 @@
 import streamlit as st
+import pandas as pd
 
 st.title("Should you stream that pitcher?")
-st.subheader("Enter below and find out!")
 
-st.subheader("First, let's check ERA and WHIP categories:")
+st.markdown("""
+This will help you determine how you far away your are from winning ERA and WHIP, assuming your opponent does not pitch anymore
+First, let's check ERA and WHIP categories:
+""")
+
+
+
+
+
+
 
 opp_era = st.number_input("Enter your opponent's ERA")
 opp_whip = st.number_input("Enter your opponent's WHIP")
@@ -49,5 +58,27 @@ finaloutput = check_stats(my_era, opp_era, my_whip, opp_whip, my_ip)
 
 st.subheader("Shutout Innings Needed:")
 
+
 # Display results
-st.write(finaloutput)
+finaloutput = st.session_state.get('finaloutput', None)
+if not finaloutput:
+    st.write("Please enter the stats, numbers will appear here")
+else:
+    st.write(finaloutput)
+
+
+
+df = pd.read_csv("SQLdailypitching.csv")
+
+
+search_text = st.text_input('Search Player by Name:')
+
+# Filter DataFrame based on text input (case-insensitive)
+if search_text:
+    filtered_df = df[df['Pitching'].str.contains(search_text, case=False)]
+else:
+    filtered_df = df
+
+# Show filtered DataFrame
+st.dataframe(filtered_df)
+
