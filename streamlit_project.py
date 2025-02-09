@@ -60,9 +60,8 @@ st.subheader("Shutout Innings Needed:")
 
 
 # Display results
-finaloutput = st.session_state.get('finaloutput', None)
 if not finaloutput:
-    st.write("Please enter the stats, numbers will appear here")
+    st.write("Please enter the stats, numbers will appear here: ")
 else:
     st.write(finaloutput)
 
