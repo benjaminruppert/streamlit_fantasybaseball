@@ -1,11 +1,28 @@
 import streamlit as st
 import pandas as pd
 
-st.title("Should you stream that pitcher?")
+st.title("Need help with ratio stats?")
 
 st.markdown("""
-This will help you determine how you far away your are from winning ERA and WHIP, assuming your opponent does not pitch anymore
-First, let's check ERA and WHIP categories:
+This will help you determine how you far away your are from winning ERA and WHIP as it currently stands.
+
+
+
+
+
+
+
+
+Enter matchup stats below:
+
+
+
+
+
+
+
+
+
 """)
 
 
@@ -61,22 +78,29 @@ st.subheader("Shutout Innings Needed:")
 
 # Display results
 if not finaloutput:
-    st.write("Please enter the stats, numbers will appear here: ")
+    st.write("Please enter the stats, numbers will appear here")
 else:
     st.write(finaloutput)
 
 
-
+# Load DataFrame
 df = pd.read_csv("SQLdailypitching.csv")
 
+# Streamlit App
+st.title("2024 Individual and Team Daily Pitching Stats")
 
-search_text = st.text_input('Search Player by Name:')
+# Dropdown for filtering
+selected_category = st.selectbox("Select Team: ", ["All"] + sorted(df['Table_ID'].dropna().unique()))
 
-# Filter DataFrame based on text input (case-insensitive)
+# Text input for searching
+search_text = st.text_input('Search Player by Name or Team Daily Totals:')
+
+# Apply filters
+filtered_df = df.copy()
+if selected_category != "All":
+    filtered_df = filtered_df[filtered_df['Table_ID'] == selected_category]
 if search_text:
-    filtered_df = df[df['Pitching'].str.contains(search_text, case=False)]
-else:
-    filtered_df = df
+    filtered_df = filtered_df[filtered_df['Pitching'].str.contains(search_text, case=False, na=False)]
 
 # Show filtered DataFrame
 st.dataframe(filtered_df)
