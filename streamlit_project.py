@@ -54,7 +54,7 @@ def check_stats(my_era, opp_era, my_whip, opp_whip, my_ip):
 
 def compute_era_scenario(my_era, opp_era, my_ip):
     if opp_era == 0:
-        return "Opponent's ERA is zero, computation not possible."
+        return "Enter non-zero opp ERA"
     
     my_er = my_era * my_ip / 9  # Calculate earned runs
     finalinnings = 9 * my_er / opp_era
@@ -77,10 +77,13 @@ st.subheader("Shutout Innings Needed:")
 
 
 # Display results
-if not finaloutput:
-    st.write("Please enter the stats, numbers will appear here")
-else:
-    st.write(finaloutput)
+#if not finaloutput:
+#    st.write("Please enter the stats, numbers will appear here")
+#else:
+#    st.write(finaloutput)
+   
+st.metric(label="ERA ----> ", value=finaloutput['ERA'])
+st.metric(label="WHIP ----> ", value=finaloutput['WHIP'])
 
 
 # Load DataFrame
@@ -88,6 +91,8 @@ df = pd.read_csv("SQLdailypitching.csv")
 
 # Streamlit App
 st.title("2024 Individual and Team Daily Pitching Stats")
+
+
 
 # Dropdown for filtering
 selected_category = st.selectbox("Select Team: ", ["All"] + sorted(df['Table_ID'].dropna().unique()))
