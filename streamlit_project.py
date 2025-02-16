@@ -61,7 +61,7 @@ def check_stats(my_era, opp_era, my_whip, opp_whip, my_ip):
 
 def compute_era_scenario(my_era, opp_era, my_ip):
     if opp_era == 0:
-        return "Enter non-zero opp ERA"
+        return "N/A"
     
     my_er = my_era * my_ip / 9  # Calculate earned runs
     finalinnings = 9 * my_er / opp_era
