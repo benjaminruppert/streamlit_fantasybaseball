@@ -5,8 +5,21 @@ st.title("Pitching Ratio Stat Caclulator")
 
 st.markdown("""
 This will help you determine how you far away your are from winning ERA and WHIP as it currently stands.
-If you are already ahead, then flip entries in columns below to see how safe you are.
 
+            
+            
+If you are already ahead, and perhaps want to chase K's, it is useful to know how "loose" you can be with your streamers,
+so we also calculate how many runs and walks + hits your streamers can allow.
+            
+
+BETA:
+At the bottom you will find data available for CSV download. Once I get this working,
+it will show all daily individual and team pitching stats for 2025 season. Maybe this will help you select a streamer!
+
+
+
+
+Good luck.      
 """)
 
 
@@ -57,6 +70,11 @@ def check_stats(my_era, opp_era, my_whip, opp_whip, my_ip):
     else:
         results['WHIP'] = compute_whip_scenario(my_whip, opp_whip)
     
+    results['ERAahead'] = compute_era_ahead_scenario(opp_era, my_ip)
+    results['WHIPahead'] = compute_whip_ahead_scenario(opp_era, my_ip, my_whip)
+
+
+
     return results
 
 def compute_era_scenario(my_era, opp_era, my_ip):
@@ -76,6 +94,19 @@ def compute_whip_scenario(my_whip, opp_whip):
     
     return finalinnings
 
+def compute_era_ahead_scenario(opp_era, my_ip):
+    my_er = my_era * my_ip / 9
+    er_allowable = ((opp_era*my_ip)-9*(my_er))/9
+    
+    return er_allowable
+
+def compute_whip_ahead_scenario(opp_era, my_ip, my_whip):
+    mywalkshits = my_whip * my_ip
+    walks_hits_allowable = (opp_whip*my_ip) - mywalkshits
+    
+    return walks_hits_allowable
+
+
 # Perform computation
 finaloutput = check_stats(my_era, opp_era, my_whip, opp_whip, my_ip)
 
@@ -89,13 +120,39 @@ finaloutput = check_stats(my_era, opp_era, my_whip, opp_whip, my_ip)
 col1, col2, col3 = st.columns([1.5, 1, 1])  # Adjust width ratios as needed
 
 with col1:
-    st.subheader("Shutout Innings Needed:")
+    st.subheader("Are You Losing? Shutout Innings Needed for Victory:")
 
 with col2:
-    st.metric(label="ERA →", value=finaloutput["ERA"])
+    if my_era > opp_era:
+        st.metric(label="ERA →", value=finaloutput["ERA"])
+    else:
+        st.metric(label="ERA →", value="N/A")
 
 with col3:
-    st.metric(label="WHIP →", value=finaloutput["WHIP"])
+    if my_whip > opp_whip:
+        st.metric(label="WHIP →", value=finaloutput["WHIP"])
+    else:
+        st.metric(label="WHIP →", value="N/A")
+
+
+
+# Create a layout with columns
+col4, col5, col6 = st.columns([1.5, 1, 1])  # Adjust width ratios as needed
+
+with col4:
+    st.subheader("Already Winning? Allowable Earned Runs and Walks + Hits:")
+
+with col5:
+    if my_era < opp_era:
+        st.metric(label="ERA →", value=finaloutput["ERAahead"])
+    else:
+        st.metric(label="ERA →", value="N/A")
+
+with col6:
+    if my_whip < opp_whip:
+        st.metric(label="WHIP →", value=finaloutput["WHIPahead"])
+    else:
+        st.metric(label="WHIP →", value="N/A")
 
 
 
@@ -123,4 +180,3 @@ if search_text:
 
 # Show filtered DataFrame
 st.dataframe(filtered_df)
-
