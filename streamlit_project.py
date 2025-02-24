@@ -1,14 +1,14 @@
 import streamlit as st
 import pandas as pd
 
-st.title("Pitching Ratio Stat Caclulator") 
+st.title("Pitching Ratio Stat Calculator") 
 
 st.markdown("""
-This will help you determine how you far away your are from winning ERA and WHIP as it currently stands.
+This will help you determine how you far away you are from winning ERA and WHIP as it currently stands.
 
             
             
-If you are already ahead, and perhaps want to chase K's, it is useful to know how "loose" you can be with your streamers,
+Also, if you are already ahead, and perhaps want to chase K's, it is useful to know how "loose" you can be with your streamers,
 so we also calculate how many runs and walks + hits your streamers can allow.
             
 
