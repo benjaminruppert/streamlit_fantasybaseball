@@ -19,7 +19,9 @@ it will show all daily individual and team pitching stats for 2025 season. Maybe
 
 
 
-Good luck.      
+Good luck.
+
+---------------------------------------------------------------------------------                  
 """)
 
 
@@ -35,27 +37,40 @@ Good luck.
 #my_ip = st.number_input("Enter your innings pitched")
 
 # Create two columns
-col1, col2 = st.columns(2)
+#col1, col2 = st.columns(2)
 
 # User's stats
-with col1:
-    st.subheader("Your Stats")
-    innings_options = [f"{i} {frac}".strip() for i in range(251) for frac in ["", "1/3", "2/3"]]
+#with col1:
+ #   st.subheader("Your Stats")
+ #   innings_options = [f"{i} {frac}".strip() for i in range(251) for frac in ["", "1/3", "2/3"]]
 
 # User input for innings pitched
-    selected_ip = st.selectbox("Innings Pitched", innings_options)
+    #selected_ip = st.selectbox("Innings Pitched", innings_options)
 
 # Convert to float
+    #my_ip = eval(selected_ip.replace(" 1/3", "+1/3").replace(" 2/3", "+2/3"))
+    #my_era = st.number_input("ERA", min_value=0.0, step=0.01)
+    #my_whip = st.number_input("WHIP", min_value=0.0, step=0.01)
+
+# Opponent's stats
+#with col2:
+ #   st.subheader("Opponent Stats")
+ #   opp_era = st.number_input("Opponent ERA", min_value=0.0, step=0.01)
+ #   opp_whip = st.number_input("Opponent WHIP", min_value=0.0, step=0.01)
+
+
+
+with st.sidebar:
+    st.header("⚾ Enter Your Stats⚾")
+    innings_options = [f"{i} {frac}".strip() for i in range(251) for frac in ["", "1/3", "2/3"]]
+    selected_ip = st.selectbox("Innings Pitched", innings_options)
     my_ip = eval(selected_ip.replace(" 1/3", "+1/3").replace(" 2/3", "+2/3"))
     my_era = st.number_input("ERA", min_value=0.0, step=0.01)
     my_whip = st.number_input("WHIP", min_value=0.0, step=0.01)
 
-# Opponent's stats
-with col2:
-    st.subheader("Opponent Stats")
-    opp_era = st.number_input("Opponent ERA", min_value=0.0, step=0.01)
-    opp_whip = st.number_input("Opponent WHIP", min_value=0.0, step=0.01)
-
+    st.header("⚾Enter Your Opponent Stats⚾")
+    opp_era = st.number_input("Opp. ERA", min_value=0.0, step=0.01)
+    opp_whip = st.number_input("Opp. WHIP", min_value=0.0, step=0.01)
 
 def check_stats(my_era, opp_era, my_whip, opp_whip, my_ip):
     results = {}
@@ -155,7 +170,7 @@ with col6:
         st.metric(label="WHIP →", value="N/A")
 
 
-
+st.markdown("------------------------------------------------------------------------")
 
 # Load DataFrame
 df = pd.read_csv("SQLdailypitching.csv")
