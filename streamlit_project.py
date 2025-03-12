@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
 st.title("Pitching Ratio Stat Calculator") 
 
@@ -13,51 +15,13 @@ so we also calculate how many runs and walks + hits your streamers can allow.
             
 
 BETA:
-At the bottom you will find data available for CSV download. Once I get this working,
-it will show all daily individual and team pitching stats for 2025 season. Maybe this will help you select a streamer!
-
-
-
+At the bottom you will find data available for CSV download. 
+This shows all daily individual and team pitching stats for 2025 season. Maybe this will help you select a streamer!
 
 Good luck.
 
 ---------------------------------------------------------------------------------                  
 """)
-
-
-
-
-
-
-
-#opp_era = st.number_input("Enter your opponent's ERA")
-#opp_whip = st.number_input("Enter your opponent's WHIP")
-#my_era = st.number_input("Enter your ERA")
-#my_whip = st.number_input("Enter your WHIP")
-#my_ip = st.number_input("Enter your innings pitched")
-
-# Create two columns
-#col1, col2 = st.columns(2)
-
-# User's stats
-#with col1:
- #   st.subheader("Your Stats")
- #   innings_options = [f"{i} {frac}".strip() for i in range(251) for frac in ["", "1/3", "2/3"]]
-
-# User input for innings pitched
-    #selected_ip = st.selectbox("Innings Pitched", innings_options)
-
-# Convert to float
-    #my_ip = eval(selected_ip.replace(" 1/3", "+1/3").replace(" 2/3", "+2/3"))
-    #my_era = st.number_input("ERA", min_value=0.0, step=0.01)
-    #my_whip = st.number_input("WHIP", min_value=0.0, step=0.01)
-
-# Opponent's stats
-#with col2:
- #   st.subheader("Opponent Stats")
- #   opp_era = st.number_input("Opponent ERA", min_value=0.0, step=0.01)
- #   opp_whip = st.number_input("Opponent WHIP", min_value=0.0, step=0.01)
-
 
 
 with st.sidebar:
@@ -68,7 +32,7 @@ with st.sidebar:
     my_era = st.number_input("ERA", min_value=0.0, step=0.01)
     my_whip = st.number_input("WHIP", min_value=0.0, step=0.01)
 
-    st.header("⚾Enter Your Opponent Stats⚾")
+    st.header("⚾Enter Opponent Stats⚾")
     opp_era = st.number_input("Opp. ERA", min_value=0.0, step=0.01)
     opp_whip = st.number_input("Opp. WHIP", min_value=0.0, step=0.01)
 
@@ -195,3 +159,38 @@ if search_text:
 
 # Show filtered DataFrame
 st.dataframe(filtered_df)
+
+
+########### PLOTTTING ####################
+
+filtered_df_forplot = df.copy()
+filtered_df_forplot = filtered_df_forplot[filtered_df_forplot['Pitching'] == 'Team Totals']
+
+st.title('Inherited Runners vs Inherited Runners Scored')
+
+st.markdown(
+
+    """
+    
+    This chart plots the relationship between inherited runners and inherited runs scored.
+    There is a positive relationship between the two, but instances of teams that have 
+    low inherited runs scored relative to their inherited runners may point to good relief
+    system.
+    
+    This uses the Team Totals from the data above.
+    
+    """
+
+)
+
+
+
+st.scatter_chart(
+    data = filtered_df_forplot,
+    x='IR',
+    y='InS',
+    color='Table_ID',
+    x_label="Inherited Runners",
+    y_label="Inherited Runs Scored"
+)
+        
