@@ -183,6 +183,7 @@ st.markdown(
 
 )
 
+filtered_df_forplot = filtered_df_forplot.groupby("Table_ID")[["IR", "InS"]].sum().reset_index()
 
 
 st.scatter_chart(
