@@ -14,8 +14,7 @@ Also, if you are already ahead, and perhaps want to chase K's, it is useful to k
 so we also calculate how many runs and walks + hits your streamers can allow.
             
 
-BETA:
-At the bottom you will find data available for CSV download. 
+At the bottom you will find some pitching data available for CSV download. 
 This shows all daily individual and team pitching stats for 2025 season. Maybe this will help you select a streamer!
 
 Good luck.
@@ -140,7 +139,7 @@ st.markdown("-------------------------------------------------------------------
 df = pd.read_csv("SQLdailypitching.csv")
 
 # Streamlit App
-st.title("2024 Individual and Team Daily Pitching Stats")
+st.title("2025 Individual and Team Daily Pitching Stats")
 
 
 
