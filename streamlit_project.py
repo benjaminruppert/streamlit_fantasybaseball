@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 
 st.title("Pitching Ratio Stat Calculator") 
 
+
 st.markdown("""
 This will help you determine how you far away you are from winning ERA and WHIP as it currently stands.
 
@@ -95,42 +96,33 @@ finaloutput = check_stats(my_era, opp_era, my_whip, opp_whip, my_ip)
 
 
 # Create a layout with columns
-col1, col2, col3 = st.columns([1.5, 1, 1])  # Adjust width ratios as needed
+col1, col2, col3 = st.columns([1.5, 1, 1])
 
 with col1:
     st.subheader("Are You Losing? Shutout Innings Needed for Victory:")
 
 with col2:
-    if my_era > opp_era:
-        st.metric(label="ERA →", value=finaloutput["ERA"])
-    else:
-        st.metric(label="ERA →", value="N/A")
+    era = finaloutput["ERA"]
+    st.metric(label="ERA →", value=f"{float(era):.2f}" if my_era > opp_era and era not in ("N/A", None, "") else "N/A")
 
 with col3:
-    if my_whip > opp_whip:
-        st.metric(label="WHIP →", value=finaloutput["WHIP"])
-    else:
-        st.metric(label="WHIP →", value="N/A")
-
+    whip = finaloutput["WHIP"]
+    st.metric(label="WHIP →", value=f"{float(whip):.2f}" if my_whip > opp_whip and whip not in ("N/A", None, "") else "N/A")
 
 
 # Create a layout with columns
-col4, col5, col6 = st.columns([1.5, 1, 1])  # Adjust width ratios as needed
+col4, col5, col6 = st.columns([1.5, 1, 1])
 
 with col4:
     st.subheader("Already Winning? Allowable Earned Runs and Walks + Hits:")
 
 with col5:
-    if my_era < opp_era:
-        st.metric(label="ERA →", value=finaloutput["ERAahead"])
-    else:
-        st.metric(label="ERA →", value="N/A")
+    era_ahead = finaloutput["ERAahead"]
+    st.metric(label="ERA →", value=f"{float(era_ahead):.2f}" if my_era < opp_era and era_ahead not in ("N/A", None, "") else "N/A")
 
 with col6:
-    if my_whip < opp_whip:
-        st.metric(label="WHIP →", value=finaloutput["WHIPahead"])
-    else:
-        st.metric(label="WHIP →", value="N/A")
+    whip_ahead = finaloutput["WHIPahead"]
+    st.metric(label="WHIP →", value=f"{float(whip_ahead):.2f}" if my_whip < opp_whip and whip_ahead not in ("N/A", None, "") else "N/A")
 
 
 st.markdown("------------------------------------------------------------------------")
