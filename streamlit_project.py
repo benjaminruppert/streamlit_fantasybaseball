@@ -14,10 +14,6 @@ This will help you determine how you far away you are from winning ERA and WHIP 
 Also, if you are already ahead, and perhaps want to chase K's, it is useful to know how "loose" you can be with your streamers,
 so we also calculate how many runs and walks + hits your streamers can allow.
             
-
-At the bottom you will find some pitching data available for CSV download. 
-This shows all daily individual and team pitching stats for 2025 season. Maybe this will help you select a streamer!
-
 Good luck.
 
 ---------------------------------------------------------------------------------                  
@@ -98,6 +94,7 @@ finaloutput = check_stats(my_era, opp_era, my_whip, opp_whip, my_ip)
 # Create a layout with columns
 col1, col2, col3 = st.columns([1.5, 1, 1])
 
+
 with col1:
     st.subheader("Are You Losing? Shutout Innings Needed for Victory:")
 
@@ -124,65 +121,77 @@ with col6:
     whip_ahead = finaloutput["WHIPahead"]
     st.metric(label="WHIP →", value=f"{float(whip_ahead):.2f}" if my_whip < opp_whip and whip_ahead not in ("N/A", None, "") else "N/A")
 
-
-st.markdown("------------------------------------------------------------------------")
+############ UNCOMMENT BELOW TO SHOW RANDOM ANALYSIS SECTION
+#st.markdown("----------------------------------------------    --------------------------")
 
 # Load DataFrame
-df = pd.read_csv("SQLdailypitching.csv")
+#df = pd.read_csv("SQLdailypitching.csv")
 
 # Streamlit App
-st.title("2025 Individual and Team Daily Pitching Stats")
+#st.title("2025 Individual and Team Daily Pitching Stats")
 
 
 
 # Dropdown for filtering
-selected_category = st.selectbox("Select Team: ", ["All"] + sorted(df['Table_ID'].dropna().unique()))
+#selected_category = st.selectbox("Select Team: ", ["All"] + sorted(df['Table_ID'].dropna().unique()))
 
 # Text input for searching
-search_text = st.text_input('Search Player by Name or Team Daily Totals:')
+#search_text = st.text_input('Search Player by Name or Team Daily Totals:')
 
 # Apply filters
-filtered_df = df.copy()
-if selected_category != "All":
-    filtered_df = filtered_df[filtered_df['Table_ID'] == selected_category]
-if search_text:
-    filtered_df = filtered_df[filtered_df['Pitching'].str.contains(search_text, case=False, na=False)]
+#filtered_df = df.copy()
+#if selected_category != "All":
+#    filtered_df = filtered_df[filtered_df['Table_ID'] == selected_category]
+#if search_text:
+#    filtered_df = filtered_df[filtered_df['Pitching'].str.contains(search_text, case=False, na=False)]
 
 # Show filtered DataFrame
-st.dataframe(filtered_df)
+#st.dataframe(filtered_df)
 
 
 ########### PLOTTTING ####################
 
-filtered_df_forplot = df.copy()
-filtered_df_forplot = filtered_df_forplot[filtered_df_forplot['Pitching'] == 'Team Totals']
+#filtered_df_forplot = df.copy()
+#filtered_df_forplot = filtered_df_forplot[filtered_df_forplot['Pitching'] == 'Team Totals']
 
-st.title('Inherited Runners vs Inherited Runners Scored')
+#st.title('Inherited Runners vs Inherited Runners Scored')
+#"""
+#st.markdown(
 
-st.markdown(
-
-    """
+#    """
     
-    This chart plots the relationship between inherited runners and inherited runs scored.
-    There is a positive relationship between the two, but instances of teams that have 
-    low inherited runs scored relative to their inherited runners may point to good relief
-    system.
+#    This chart plots the relationship between inherited runners and inherited runs scored.
+#    There is a positive relationship between the two, but instances of teams that have 
+#    low inherited runs scored relative to their inherited runners may point to good relief
+#    system.
     
-    This uses the Team Totals from the data above.
+#    This uses the Team Totals from the data above.
     
-    """
+#    """
 
-)
+#)
+#"""
+#filtered_df_forplot = filtered_df_forplot.groupby("Table_ID")[["IR", "InS"]].sum().reset_index()
 
-filtered_df_forplot = filtered_df_forplot.groupby("Table_ID")[["IR", "InS"]].sum().reset_index()
 
-
-st.scatter_chart(
-    data = filtered_df_forplot,
-    x='IR',
-    y='InS',
-    color='Table_ID',
-    x_label="Inherited Runners",
-    y_label="Inherited Runs Scored"
-)
+#st.scatter_chart(
+#    data = filtered_df_forplot,
+#    x='IR',
+#    y='InS',
+#    color='Table_ID',
+#    x_label="Inherited Runners",
+#    y_label="Inherited Runs Scored"
+#)
         
+#"""
+
+
+st.markdown("""
+            
+
+
+
+
+            
+Any recommendations, question, or just want to chat baseball and/or coding, send me an email!  benjamin.ruppert13@gmail.com             
+""")
