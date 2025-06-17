@@ -5,3 +5,4 @@ gspread
 ServiceAccountCredentials
 datetime
 oauth2client
+oauth2client.service_account
