@@ -1,3 +1,6 @@
 pandas
 numpy
 matplotlib
+gspread
+ServiceAccountCredentials
+datetime
