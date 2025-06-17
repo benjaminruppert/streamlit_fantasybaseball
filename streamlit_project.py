@@ -2,8 +2,17 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+from datetime import datetime
 
-st.title("Pitching Ratio Stat Calculator") 
+###### This is used for Google sheet authentication
+scope = [
+    "https://spreadsheets.google.com/feeds",
+    "https://www.googleapis.com/auth/drive"
+]
+creds = ServiceAccountCredentials.from_json_keyfile_name("peerless-summit-463204-n0-d98cb83df645.json", scope)
+client = gspread.authorize(creds)
 
 
 st.markdown("""
@@ -121,6 +130,11 @@ with col6:
     whip_ahead = finaloutput["WHIPahead"]
     st.metric(label="WHIP →", value=f"{float(whip_ahead):.2f}" if my_whip < opp_whip and whip_ahead not in ("N/A", None, "") else "N/A")
 
+
+
+
+
+
 ############ UNCOMMENT BELOW TO SHOW RANDOM ANALYSIS SECTION
 #st.markdown("----------------------------------------------    --------------------------")
 
@@ -185,13 +199,16 @@ with col6:
         
 #"""
 
+# Open the sheet
+sheet = client.open("comments").sheet1
 
-st.markdown("""
-            
+comment = st.text_input("Enter your comment:")
 
-
-
-
-            
-Any recommendations, question, or just want to chat baseball and/or coding, send me an email!  benjamin.ruppert13@gmail.com             
-""")
+if st.button("Submit"):
+    if comment.strip() == "":
+        st.warning("Please enter a comment before submitting.")
+    else:
+        entered_on = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        # Append the row
+        sheet.append_row([comment, entered_on])
+        st.success("Comment submitted!")
