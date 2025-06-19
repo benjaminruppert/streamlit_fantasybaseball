@@ -2,6 +2,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from streamlit_gsheets import GSheetsConnection
+
+## G sheet connection
+conn = st.connection("gsheets",type=GSheetsConnection)
+
 
 st.title("Pitching Ratio Stat Calculator") 
 
