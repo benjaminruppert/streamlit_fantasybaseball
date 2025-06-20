@@ -2,10 +2,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from datetime import datetime
 from streamlit_gsheets import GSheetsConnection
 
 ## G sheet connection
-conn = st.connection("gsheets",type=GSheetsConnection)
+conn = st.connection("gsheets", type=GSheetsConnection)
 
 
 st.title("Pitching Ratio Stat Calculator") 
@@ -200,3 +201,27 @@ st.markdown("""
             
 Any recommendations, question, or just want to chat baseball and/or coding, send me an email!  benjamin.ruppert13@gmail.com             
 """)
+
+
+
+comment = st.text_area("Leave a comment!")
+
+# Submit button
+if st.button("Submit"):
+    new_row = pd.DataFrame([{
+        "Comment": comment,
+        "IP": my_ip,
+        "ERA": my_era,
+        "WHIP": my_whip,
+        "OPP_ERA": opp_era,
+        "OPP_WHIP": opp_whip,
+        "EnteredOn": datetime.now().isoformat()
+    }])
+
+    # Read existing data and append new row
+    df = conn.read(worksheet="Sheet1")
+    df = pd.concat([df, new_row], ignore_index=True)
+    conn.update(worksheet="Sheet1", data=df)
+    st.success("Appreciate it!")
+
+
