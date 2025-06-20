@@ -192,18 +192,6 @@ with col6:
 #"""
 
 
-st.markdown("""
-            
-
-
-
-
-            
-Any recommendations, question, or just want to chat baseball and/or coding, send me an email!  benjamin.ruppert13@gmail.com             
-""")
-
-
-
 comment = st.text_area("Leave a comment!")
 
 # Submit button
