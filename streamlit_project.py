@@ -192,16 +192,6 @@ with col6:
 #"""
 
 
-
-
-# Always show the latest data
-df = conn.read(worksheet="again")
-st.dataframe(df)
-import streamlit as st
-import pandas as pd
-from datetime import datetime
-from streamlit_gsheets import GSheetsConnection
-
 # Connect to Google Sheet
 conn = st.connection("gsheets", type=GSheetsConnection)
 df = conn.read(worksheet="again")
