@@ -6,7 +6,7 @@ from datetime import datetime
 from streamlit_gsheets import GSheetsConnection
 
 ## G sheet connection
-conn = st.connection("gsheets", type=GSheetsConnection)
+conn = st.connection("gsheets", type=GSheetsConnection, ttl=0)
 
 
 st.title("Pitching Ratio Stat Calculator") 
@@ -192,11 +192,26 @@ with col6:
 #"""
 
 
-comment = st.text_area("Leave a comment!")
 
-# Submit button
-if st.button("Submit"):
-    new_row = pd.DataFrame([{
+
+# Always show the latest data
+df = conn.read(worksheet="again")
+st.dataframe(df)
+import streamlit as st
+import pandas as pd
+from datetime import datetime
+from streamlit_gsheets import GSheetsConnection
+
+# Connect to Google Sheet
+conn = st.connection("gsheets", type=GSheetsConnection)
+df = conn.read(worksheet="again")
+
+# User inputs
+comment = st.text_input("Leave a comment")
+
+# Submit and append
+if st.button("Submit") and comment:
+    new_row = {
         "Comment": comment,
         "IP": my_ip,
         "ERA": my_era,
@@ -204,12 +219,15 @@ if st.button("Submit"):
         "OPP_ERA": opp_era,
         "OPP_WHIP": opp_whip,
         "EnteredOn": datetime.now().isoformat()
-    }])
+    }
 
-    # Read existing data and append new row
-    df = conn.read(worksheet="Sheet1")
-    df = pd.concat([df, new_row], ignore_index=True)
-    conn.update(worksheet="Sheet1", data=df)
-    st.success("Appreciate it!")
+    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+    conn.update(worksheet="again", data=df)
+    st.success("Submitted!")
+    st.cache_data.clear()
+    st.rerun()
+
+
+
 
 
