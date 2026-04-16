@@ -198,7 +198,6 @@ df = conn.read(worksheet="again")
 
 # User inputs
 comment = st.text_input("Leave a comment")
-commenttwo = st.text_input("Wowww!!!! is this still working?")
 
 # Submit and append
 if st.button("Submit") and comment:
