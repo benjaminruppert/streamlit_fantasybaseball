@@ -4,3 +4,4 @@ matplotlib
 st-gsheets-connection
 datetime
 streamlit-analytics
+streamlit-analytics2
