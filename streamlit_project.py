@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 from streamlit_gsheets import GSheetsConnection
-import streamlit_analytics
+
 
 ## G sheet connection
 conn = st.connection("gsheets", type=GSheetsConnection, ttl=0)
@@ -96,12 +96,6 @@ finaloutput = check_stats(my_era, opp_era, my_whip, opp_whip, my_ip)
 #st.subheader("Shutout Innings Needed:")
 #st.metric(label="ERA ----> ", value=finaloutput['ERA'])
 #st.metric(label="WHIP ----> ", value=finaloutput['WHIP'])
-
-
-
-with streamlit_analytics.track():
-    # your existing streamlit code here
-    st.button("Click me")
 
 
 # Create a layout with columns
